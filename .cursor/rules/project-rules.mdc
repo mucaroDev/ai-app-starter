@@ -1,0 +1,152 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Cursor Rules for Next.js + TailwindCSS + shadcn/ui Project
+
+## Core Principles
+- **Quality over speed**: Only write code when 95% confident it's bug-free and follows best practices
+- **Ask first, code second**: Always ask clarifying questions when requirements are unclear
+- **Clean and concise**: Write readable, maintainable code that follows established patterns
+- **Use context7 MCP**: Always use context7 MCP when working with libraries
+
+## Next.js 15 Guidelines
+
+### App Router Structure
+- Use App Router (`app/` directory) for all new routes
+- Follow the file-based routing conventions: `page.tsx`, `layout.tsx`, `loading.tsx`, `error.tsx`
+- Use Server Components by default, only add `"use client"` when necessary
+- Prefer React Server Components for data fetching and static content
+- Use Client Components only for interactivity, event handlers, browser APIs, or React hooks
+
+### File Naming & Organization
+- Use kebab-case for route folders: `app/user-profile/page.tsx`
+- Use PascalCase for component files: `components/UserCard.tsx`
+- Use camelCase for utility files: `lib/userHelpers.ts`
+- Group related files in feature folders when appropriate
+
+### Performance & Best Practices
+- Use `next/image` for all images with proper `alt` attributes
+- Implement proper loading states with `loading.tsx` files
+- Use `Suspense` boundaries for async components
+- Prefer static generation over server-side rendering when possible
+- Use `next/font` for web fonts (already configured with Geist fonts)
+
+## TypeScript Standards
+- Use strict TypeScript configuration
+- Define proper interfaces and types for all props and data structures
+- Use `type` for simple type aliases, `interface` for object shapes that might be extended
+- Avoid `any` type - use `unknown` or proper typing instead
+- Use generic types for reusable components and utilities
+
+## React Best Practices
+- Use functional components with TypeScript
+- Follow React 19 patterns and best practices
+- Use proper dependency arrays in `useEffect`, `useMemo`, and `useCallback`
+- Prefer `useState` and `useReducer` for local state management
+- Use React Hook Form with Zod for form validation (already configured)
+- Keep components small and focused on a single responsibility
+
+## shadcn/ui Component Guidelines
+- Use existing shadcn/ui components from `@/components/ui` before creating custom ones
+- Follow the established component patterns in the `components/ui` directory
+- Use the `cn()` utility function from `@/lib/utils` for conditional styling
+- Maintain consistent component API patterns with existing shadcn components
+- When extending components, use composition over modification
+
+### Component Structure
+```tsx
+// Preferred component structure
+import { cn } from "@/lib/utils"
+
+interface ComponentProps {
+  // Define props here
+}
+
+export function Component({ className, ...props }: ComponentProps) {
+  return (
+    <div className={cn("base-styles", className)} {...props}>
+      {/* Component content */}
+    </div>
+  )
+}
+```
+
+## TailwindCSS Guidelines
+- Use TailwindCSS v4 syntax and features
+- Prefer Tailwind utilities over custom CSS
+- Use the `cn()` utility for conditional classes and merging
+- Follow mobile-first responsive design with `sm:`, `md:`, `lg:`, `xl:` prefixes
+- Use CSS variables for theming (already configured in `app/globals.css`)
+- Group related utilities: layout → spacing → colors → typography → effects
+
+### Class Organization Order
+1. Layout: `flex`, `grid`, `block`, etc.
+2. Positioning: `relative`, `absolute`, `top-0`, etc.
+3. Spacing: `p-4`, `m-2`, `gap-4`, etc.
+4. Sizing: `w-full`, `h-screen`, `max-w-md`, etc.
+5. Typography: `text-lg`, `font-bold`, `text-center`, etc.
+6. Colors: `bg-primary`, `text-foreground`, etc.
+7. Effects: `shadow-md`, `rounded-lg`, `opacity-50`, etc.
+
+## File Structure & Imports
+- Use absolute imports with the configured aliases:
+  - `@/components` for components
+  - `@/lib` for utilities
+  - `@/hooks` for custom hooks
+  - `@/app` for app router files
+- Group imports: React → Third-party → Internal → Relative
+- Use named exports for components and utilities
+- Use default exports only for pages and layouts
+
+## Error Handling & Validation
+- Use Zod for runtime validation and type inference
+- Implement proper error boundaries with `error.tsx` files
+- Use React Hook Form for form handling with proper validation
+- Provide meaningful error messages to users
+- Log errors appropriately for debugging
+
+## Accessibility
+- Include proper ARIA attributes for interactive elements
+- Ensure keyboard navigation works correctly
+- Use semantic HTML elements
+- Provide descriptive alt text for images
+- Maintain proper color contrast ratios
+- Test with screen readers when possible
+
+## Performance Considerations
+- Use `React.memo()` for expensive components that re-render frequently
+- Implement proper loading states and skeletons
+- Use `Suspense` for code splitting and lazy loading
+- Optimize images with `next/image` and proper sizing
+- Minimize bundle size by importing only what's needed
+
+## Code Quality Checks
+Before submitting code, ensure:
+- [ ] TypeScript compiles without errors
+- [ ] ESLint passes without warnings
+- [ ] Components are properly tested for basic functionality
+- [ ] Mobile responsiveness is considered
+- [ ] Accessibility requirements are met
+- [ ] Error handling is implemented
+- [ ] Loading states are provided where appropriate
+
+## Questions to Ask Before Coding
+1. Do I understand the complete requirements?
+2. Are there any edge cases I should consider?
+3. How should this work on mobile devices?
+4. What happens if the data is loading or fails to load?
+5. Are there accessibility considerations?
+6. Does this follow the existing patterns in the codebase?
+7. Could this be built with existing shadcn/ui components?
+
+## When to Ask for Clarification
+- Requirements are ambiguous or incomplete
+- Multiple valid approaches exist
+- Unsure about data structure or API contracts
+- Accessibility requirements are unclear
+- Performance requirements are not specified
+- Design specifications are missing or unclear
+
+Remember: It's better to ask questions upfront than to build the wrong thing efficiently. 
